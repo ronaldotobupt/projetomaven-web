@@ -1,12 +1,15 @@
 package com.ronaldosantos.projetomaven.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable{
@@ -20,6 +23,11 @@ public class Usuario implements Serializable{
 	private String email;
 	private String telefone;
 	private String password;
+	
+	//Associação Usuário / Pedido (1 para muitos - 01 usuário pode ter vários pedidos)
+	//Fazendo associação JPG
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>(); 
 	
 	public Usuario() {
 		
@@ -69,6 +77,10 @@ public class Usuario implements Serializable{
 	public String getPassword() {
 		return password;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -90,6 +102,8 @@ public class Usuario implements Serializable{
 		Usuario other = (Usuario) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 
