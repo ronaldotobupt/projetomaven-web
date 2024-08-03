@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +21,8 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataPedido;
 	
 	//Associação Pedido - cliente (Muitos para 01 - 01 cliente pode ter vários pedidos)
@@ -33,7 +37,6 @@ public class Pedido implements Serializable{
 	}
 
 	public Pedido(Long id, Instant dataPedido, Usuario cliente) {
-		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
 		this.cliente = cliente;
