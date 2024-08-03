@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ronaldosantos.projetomaven.entidades.enumerado.statusPedido;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,8 @@ public class Pedido implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataPedido;
 	
+	private Integer StatusPedido;
+	
 	//Associação Pedido - cliente (Muitos para 01 - 01 cliente pode ter vários pedidos)
 	//Informando ao JPA a criação de chave estrangeira na pedidos
 	
@@ -36,9 +39,11 @@ public class Pedido implements Serializable{
 		
 	}
 
-	public Pedido(Long id, Instant dataPedido, Usuario cliente) {
+	public Pedido(Long id, Instant dataPedido,statusPedido StatusPedido, Usuario cliente) {
+		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
+		setStatusPedido(StatusPedido);
 		this.cliente = cliente;
 	}
 
@@ -56,6 +61,18 @@ public class Pedido implements Serializable{
 
 	public void setDataPedido(Instant dataPedido) {
 		this.dataPedido = dataPedido;
+	}
+	
+	
+
+	public statusPedido getStatusPedido() {
+		return statusPedido.valor(StatusPedido);
+	}
+
+	public void setStatusPedido(statusPedido statusPedido) {
+		if(statusPedido != null) {
+		StatusPedido = statusPedido.getCode();
+		}
 	}
 
 	public Usuario getCliente() {
