@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.ronaldosantos.projetomaven.entidades.Categoria;
 import com.ronaldosantos.projetomaven.entidades.Pedido;
 import com.ronaldosantos.projetomaven.entidades.Usuario;
 import com.ronaldosantos.projetomaven.entidades.enumerado.statusPedido;
+import com.ronaldosantos.projetomaven.repositorios.RepositorioCategoria;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioPedido;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioUsuario;
 
@@ -23,9 +25,19 @@ public class TesteConfig implements CommandLineRunner{
 	
 	@Autowired
 	private RepositorioUsuario repositorioUsuario;
+	
+	@Autowired
+	private RepositorioCategoria repositorioCategoria;
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Categoria cat1 = new Categoria(null, "Electronics");
+		Categoria cat2 = new Categoria(null, "Books");
+		Categoria cat3 = new Categoria(null, "Computers");
+		
+		repositorioCategoria.saveAll(Arrays.asList(cat1,cat2,cat3));
+		
 		Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 		
