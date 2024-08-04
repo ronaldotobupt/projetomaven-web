@@ -21,7 +21,7 @@ public class RecursoWebProduto {
 	
 	
 	@GetMapping
-	public ResponseEntity<List<Produto>> listadecategorias(){
+	public ResponseEntity<List<Produto>> listadeprodutos(){
 		List<Produto> listaprodutos = servico.todosProdutos();
 		return ResponseEntity.ok().body(listaprodutos);
 		
