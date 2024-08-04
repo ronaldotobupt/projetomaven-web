@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.ronaldosantos.projetomaven.entidades.Categoria;
+import com.ronaldosantos.projetomaven.entidades.ItemDoPedido;
 import com.ronaldosantos.projetomaven.entidades.Pedido;
 import com.ronaldosantos.projetomaven.entidades.Produto;
 import com.ronaldosantos.projetomaven.entidades.Usuario;
 import com.ronaldosantos.projetomaven.entidades.enumerado.statusPedido;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioCategoria;
+import com.ronaldosantos.projetomaven.repositorios.RepositorioItensDoPedido;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioPedido;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioProduto;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioUsuario;
@@ -33,6 +35,9 @@ public class TesteConfig implements CommandLineRunner{
 	
 	@Autowired
 	private RepositorioProduto repositorioProduto;
+	
+	@Autowired
+	private RepositorioItensDoPedido repositorioItensDoPedido;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -69,6 +74,14 @@ public class TesteConfig implements CommandLineRunner{
 		
 		repositorioUsuario.saveAll(Arrays.asList(u1,u2));
 		repositorioPedido.saveAll(Arrays.asList(o1,o2,o3));
+		
+		ItemDoPedido oi1 = new ItemDoPedido(o1, p1, 2, p1.getPreco());
+		ItemDoPedido oi2 = new ItemDoPedido(o1, p3, 1, p3.getPreco());
+		ItemDoPedido oi3 = new ItemDoPedido(o2, p3, 2, p3.getPreco());
+		ItemDoPedido oi4 = new ItemDoPedido(o3, p5, 2, p5.getPreco());
+		
+		repositorioItensDoPedido.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
 	}
 
 }

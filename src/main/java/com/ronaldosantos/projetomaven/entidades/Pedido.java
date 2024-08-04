@@ -2,7 +2,9 @@ package com.ronaldosantos.projetomaven.entidades;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ronaldosantos.projetomaven.entidades.enumerado.statusPedido;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido implements Serializable{
@@ -34,6 +37,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")//Nome do campo chave estrangeira
 	private Usuario cliente;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemDoPedido> itens = new HashSet<>();
 	
 	public Pedido() {
 		
@@ -81,6 +87,11 @@ public class Pedido implements Serializable{
 
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<ItemDoPedido> getItens(){
+		return itens;
+		
 	}
 
 	@Override
