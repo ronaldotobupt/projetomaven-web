@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.ronaldosantos.projetomaven.entidades.Categoria;
 import com.ronaldosantos.projetomaven.entidades.ItemDoPedido;
+import com.ronaldosantos.projetomaven.entidades.Pagamento;
 import com.ronaldosantos.projetomaven.entidades.Pedido;
 import com.ronaldosantos.projetomaven.entidades.Produto;
 import com.ronaldosantos.projetomaven.entidades.Usuario;
@@ -81,6 +82,11 @@ public class TesteConfig implements CommandLineRunner{
 		ItemDoPedido oi4 = new ItemDoPedido(o3, p5, 2, p5.getPreco());
 		
 		repositorioItensDoPedido.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		Pagamento pgto1 = new Pagamento(null,Instant.parse("2019-06-20T21:53:07Z"),o1);
+		o1.setPagamento(pgto1);
+		
+		repositorioPedido.save(o1);
 		
 	}
 
