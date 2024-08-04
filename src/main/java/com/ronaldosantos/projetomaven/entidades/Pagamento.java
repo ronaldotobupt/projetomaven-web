@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Pagamento implements Serializable {
 	
 	private Instant dataPagamento;
 	
+	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Pedido pedido;
@@ -60,6 +63,8 @@ public class Pagamento implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
