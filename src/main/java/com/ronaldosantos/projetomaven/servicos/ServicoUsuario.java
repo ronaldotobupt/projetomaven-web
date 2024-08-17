@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ronaldosantos.projetomaven.entidades.Usuario;
 import com.ronaldosantos.projetomaven.repositorios.RepositorioUsuario;
+import com.ronaldosantos.projetomaven.servicos.excecoes.RecursoNaoEcontradoExcecao;
 
 @Service
 public class ServicoUsuario {
@@ -21,7 +22,7 @@ public class ServicoUsuario {
 	
 	public Usuario usuarioPorId(Long id) {
 		Optional<Usuario> obj = repositorio.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new RecursoNaoEcontradoExcecao(id));
 	}
 	
 	public Usuario inserir(Usuario obj) {
