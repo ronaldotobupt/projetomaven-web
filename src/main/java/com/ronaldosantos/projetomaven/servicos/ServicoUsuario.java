@@ -12,6 +12,8 @@ import com.ronaldosantos.projetomaven.repositorios.RepositorioUsuario;
 import com.ronaldosantos.projetomaven.servicos.excecoes.AcessoDeDadosExcecao;
 import com.ronaldosantos.projetomaven.servicos.excecoes.RecursoNaoEcontradoExcecao;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ServicoUsuario {
 
@@ -44,12 +46,15 @@ public class ServicoUsuario {
 		
 	}
 	
-	
-
 	public Usuario update(Long id, Usuario obj) {
+		try {
 		Usuario entity = repositorio.getReferenceById(id);
 		atualizarDados(entity, obj);
 		return repositorio.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new RecursoNaoEcontradoExcecao(id);
+		}
 	}
 
 	private void atualizarDados(Usuario entity, Usuario obj) {
